@@ -26,33 +26,51 @@ public class LOA {
 		return wert;
 	}
 	
-	private static double[][] Tabellen_builder(int anzahl_BV,int anzahl_NBV) throws IOException
+	private static double[][] Tabellen_builder(int anzahl_BV,int anzahl_NBV) 
 	{
 		//inizialisieren der Tabelle
 		
 		double [][] Tabelle=new double [anzahl_NBV+1][anzahl_BV+1];//+1 wegen charakteristischen Zeile,Spalte 
 		//TODO Werte einlesen aus datei
-		FileReader f_loa = new FileReader("LOA_Werte.dat");
+		FileReader f_loa;
+		try {
+			f_loa = new FileReader("LOA_Werte.dat");
+		
 	    BufferedReader r_loa = new BufferedReader(f_loa);
 
 	    String zeile = "";
 
-	    while( (zeile = r_loa.readLine()) != null )
-	    {
-	    	//TODO Zeile entsprechend einfügen
-	    	
-	    }
+	    try {
+			while( (zeile = r_loa.readLine()) != null )
+			{
+				//TODO Zeile entsprechend einfügen
+				
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-	    f_loa.close();
+	    try {
+			f_loa.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	    
 	    boolean optimal=false;
 	    int[] information=new int[4];/*       0. Anzahl an NBV, 1.Anzahl BV,
 	    									  2.Spalte des Pivotelements, Zeile des Pivotelements */
+	    Tabelle= Tabellen_filler(information, Tabelle, optimal);
 	    
 		//Temporaer
 		double[][]Return=new double[1][1];
 		Return[0][0]=0;
-		return Return;
+		return Return;} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	private static double [][]Tabellen_filler(int[] information,double [][] Tabelle,boolean optimal)
@@ -147,7 +165,8 @@ public class LOA {
 	
 	public static void main(String[] args)
 	{
-		//TODO schreiben
+		//beispiel Berechnung
+		Tabellen_builder(2, 3);
 	}
 
 }
